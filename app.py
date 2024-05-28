@@ -184,7 +184,8 @@ def server(input, output, session):
 
     @reactive.Calc
     async def cdi_data():
-        response = await pyodide.http.pyfetch(url())
+        proxy_url = f'https://cors-anywhere.herokuapp.com/{url}'
+        response = await pyodide.http.pyfetch(proxy_url())
         if response.status != 200:
             raise Exception(f"Error fetching {url()}: {response.status}")
         data = await response.json()
@@ -192,9 +193,11 @@ def server(input, output, session):
 
     @reactive.Calc
     async def cdiDia_data():
-        response = await pyodide.http.pyfetch(urlDiariocdi())
+        
+        proxy_url2 = f'https://cors-anywhere.herokuapp.com/{urlDiariocdi}'
+        response = await pyodide.http.pyfetch(proxy_url2())
         if response.status != 200:
-            raise Exception(f"Error fetching {urlDiariocdi()}: {response.status}")
+            raise Exception(f"Error fetching {proxy_url2()}: {response.status}")
         data = await response.json()
         return data
 
