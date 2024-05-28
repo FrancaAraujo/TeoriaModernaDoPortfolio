@@ -163,12 +163,12 @@ dados_valores = {}
 
 def server(input, output, session):
     @reactive.Calc
-    def url():
-        return f"https://api.bcb.gov.br/dados/serie/bcdata.sgs.4391/dados?formato=json"
+    def url():    
+        return f"https://cors-anywhere.herokuapp.com/https://api.bcb.gov.br/dados/serie/bcdata.sgs.4391/dados?formato=json"
 
     @reactive.Calc
     def urlDiariocdi():
-        return f"https://api.bcb.gov.br/dados/serie/bcdata.sgs.12/dados?formato=json"
+        return f"https://cors-anywhere.herokuapp.com/https://api.bcb.gov.br/dados/serie/bcdata.sgs.12/dados?formato=json"
 
     @reactive.Calc
     def url2():
@@ -184,8 +184,7 @@ def server(input, output, session):
 
     @reactive.Calc
     async def cdi_data():
-        proxy_url = f'https://cors-anywhere.herokuapp.com/{url}'
-        response = await pyodide.http.pyfetch(proxy_url())
+        response = await pyodide.http.pyfetch(url())
         if response.status != 200:
             raise Exception(f"Error fetching {url()}: {response.status}")
         data = await response.json()
@@ -193,11 +192,9 @@ def server(input, output, session):
 
     @reactive.Calc
     async def cdiDia_data():
-        
-        proxy_url2 = f'https://cors-anywhere.herokuapp.com/{urlDiariocdi}'
-        response = await pyodide.http.pyfetch(proxy_url2())
+        response = await pyodide.http.pyfetch(urlDiariocdi())
         if response.status != 200:
-            raise Exception(f"Error fetching {proxy_url2()}: {response.status}")
+            raise Exception(f"Error fetching {urlDiariocdi()}: {response.status}")
         data = await response.json()
         return data
 
