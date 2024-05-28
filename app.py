@@ -226,7 +226,7 @@ def server(input, output, session):
     @reactive.event(input.run, ignore_none=False)
     async def plot():
         print("entrei")
-        selected = ["Markowitz", "Ingenua","IVVB11", "BOVA11" , "CDI", "Estrategia do Portfolio Eficiente", "Estrategia Conservadora"]
+        selected = ["Markowitz", "Ingênua","IVVB11", "BOVA11" , "CDI", "Estratégia do Portfólio Eficiente", "Estratégia Conservadora"]
         # Atualiza os valores iniciais e finais.
         datacdiDiario = await cdiDia_data()
         data1 = await cdi_data()
